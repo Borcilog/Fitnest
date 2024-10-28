@@ -6,8 +6,29 @@
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <style>
+        header{
+            text-align: center;
+            padding: 10px 20px;
+            background-color: rgb(116, 143, 143);
+            border-radius: 3px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px #3d3d3d;
+        }
+        header a{
+            font-size: 20px;
+            padding-inline: 8px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        header a:hover{
+            background-color: rgba(226, 205, 177, 0.815);
+            border-radius: 2rem;
+        }
+    </style>
 </head>
 <body>
+
     {% include 'app/navbar.html' %}
 
     {% block content %}
