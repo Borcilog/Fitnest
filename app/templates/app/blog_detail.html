@@ -1,0 +1,9 @@
+{%  extends 'app/base.html' %}
+{% load static %}
+{% block content%}
+        <div class="post-entry">
+            <h2><a href="">{{post.title}}</a></h2>
+            <p>{{post.body}}</p>
+        </div>
+        <a href="{% url 'blog_update' post.pk %}"> EDIT BLOG POST </a>
+{% endblock content %}
