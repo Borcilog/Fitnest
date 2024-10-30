@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Post, Video
-from .forms import VideoForm
+from .models import Post, Video, Contact
+from .forms import VideoForm, ContactForm
 from django.urls import reverse_lazy
 
 class HomePageView(TemplateView):
@@ -46,3 +46,9 @@ class VideoUploadView(CreateView):
     form_class = VideoForm
     template_name = 'app/Video.html'
     success_url = reverse_lazy('Video_list')
+
+class ContactPageView(CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = 'app/contact.html'
+    success_url = reverse_lazy('home')

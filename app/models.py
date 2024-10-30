@@ -19,3 +19,11 @@ class Video(models.Model):
 
     def str(self):
         return self.title
+    
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+
+    def str(self):
+        return self.name

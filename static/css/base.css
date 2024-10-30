@@ -11,7 +11,7 @@ h1{
 .mylogo{
     height: 350px;
     width: auto;
-    padding-left: 31rem;
+    padding-left: 36rem;
 }
 
 a{
@@ -27,4 +27,58 @@ a:hover{
     padding: 10px 15px;
     text-align: center;
     border-radius: 1rem;
+}
+.container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group-contact {
+    display: flex;
+    flex-direction: column;
+    margin: 1em auto;
+    padding: 1rem;
+    padding-left: 28rem;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+.form-group-contact label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group-contact input[type="text"], input[type="email"], textarea {
+    width: 57%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin-left: 59rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #80ad81;
+    color: #1b1700;
+    box-shadow: 0 5px 15px rgb(0, 0, 0);
 }
