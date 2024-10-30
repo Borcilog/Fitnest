@@ -1,0 +1,19 @@
+{% extends 'app/Base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'Video' %}" class="vid_btn" style="margin-left: 38rem;">+ Add Video </a>
+{% if Video %}
+    <div class="video-gallery">
+        {% for video in videos %}
+                <h2>{{ video.title }}</h2>
+                <video controls>
+                    <source src="{{ video.video_file.url }}" type="video/mp4">
+                </video>
+                <p class="p_vid">{{ video.description }}</p>
+        {% endfor %}
+    </div>
+{% else %}
+{% endif %}
+
+{% endblock %}

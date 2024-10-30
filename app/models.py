@@ -11,4 +11,11 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("blog_detail", kwargs={"pk": self.pk})
-    
+ 
+class Video(models.Model):
+    title = models.CharField(max_length=100)
+    video_file = models.FileField()
+    description = models.TextField()
+
+    def str(self):
+        return self.title

@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
-from .models import Post 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import Post, Video
+from .forms import VideoForm
+from django.urls import reverse_lazy
 
 class HomePageView(TemplateView):
     template_name = 'app/home.html'
@@ -29,3 +31,18 @@ class BlogUpdateView(UpdateView):
     model = Post
     fields = ['title', 'author', 'body']
     template_name = 'app/blog_update.html'
+
+class BlogDeleteView(DeleteView):
+    model = Post
+    template_name = 'app/blog_delete.html'
+    success_url = reverse_lazy('body')
+class VideoListView(ListView):
+    model = Video
+    template_name = 'app/video_list.html'
+    context_object_name = 'Videos'
+
+class VideoUploadView(CreateView):
+    model = Video
+    form_class = VideoForm
+    template_name = 'app/Video.html'
+    success_url = reverse_lazy('Video_list')
