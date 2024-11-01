@@ -5,6 +5,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey("auth.user", on_delete=models.CASCADE)
     body = models.TextField()
+    header_image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     def __str__(self):
         return self.title
@@ -14,10 +15,10 @@ class Post(models.Model):
  
 class Video(models.Model):
     title = models.CharField(max_length=100)
-    video_file = models.FileField()
+    video_file = models.FileField(upload_to='videos/%y')
     description = models.TextField()
 
-    def str(self):
+    def __str__(self):
         return self.title
     
 class Contact(models.Model):

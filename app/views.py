@@ -24,28 +24,32 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Post
-    fields = ['title', 'author', 'body']
+    fields = ['title', 'author', 'body', 'header_image']
     template_name = 'app/blog_create.html'
 
 class BlogUpdateView(UpdateView):
     model = Post
-    fields = ['title', 'author', 'body']
+    fields = ['title', 'author', 'body', 'header_image']
     template_name = 'app/blog_update.html'
 
 class BlogDeleteView(DeleteView):
     model = Post
     template_name = 'app/blog_delete.html'
     success_url = reverse_lazy('body')
-class VideoListView(ListView):
-    model = Video
-    template_name = 'app/video_list.html'
-    context_object_name = 'Videos'
 
-class VideoUploadView(CreateView):
-    model = Video
-    form_class = VideoForm
-    template_name = 'app/Video.html'
-    success_url = reverse_lazy('Video_list')
+def video_list(request):
+    videos = Video.objects.all()
+    return render(request, 'app/Video_list.html', {'videos': videos})
+
+def upload_video(request):
+    if request.method == 'POST':
+        form = VideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('video_list')  # Adjust to the URL name of your video list page
+    else:
+        form = VideoForm()
+    return render(request, 'app/Video.html', {'form': form})
 
 class ContactPageView(CreateView):
     model = Contact
