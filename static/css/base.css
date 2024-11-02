@@ -9,10 +9,13 @@ h1{
     text-align: center;
 }
 
-.mylogo{
-    height: 350px;
-    width: auto;
-    padding-left: 36rem;
+.responsive-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
 }
 
 a{
@@ -38,17 +41,15 @@ a:hover{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-}
 
 .form-group-contact {
-    display: flex;
+    display:flex;
     flex-direction: column;
     margin: 1em auto;
-    padding: 1rem;
-    padding-left: 28rem;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-left: 50px;
 }
 
 form p {
@@ -73,7 +74,7 @@ form p {
     color: white;
     border: none;
     padding: 15px;
-    margin-left: 59rem;
+    margin-left: 50rem;
     border-radius: 5px;
     cursor: pointer;
 }

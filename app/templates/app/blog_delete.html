@@ -1,6 +1,7 @@
 {%  extends 'app/base.html' %}
 {% load static %}
 {% block content%}
+
     <h1>EDIT POST</h1>
     <form action="{% url 'blog_delete' object.pk %}" method="post">
         {% csrf_token %}
