@@ -41,7 +41,6 @@ a:hover{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-
 .form-group-contact {
     display:flex;
     flex-direction: column;
@@ -83,4 +82,63 @@ form p {
     background-color: #80ad81;
     color: #1b1700;
     box-shadow: 0 5px 15px rgb(0, 0, 0);
+}
+
+.user_card {
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #73b3a6;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+
+}
+
+.form_container {
+    margin-top: 20px;
+}
+
+#form-title{
+    color: #fff;
+}
+.login_btn {
+    width: 100%;
+    background: #916c63 !important;
+    color: rgb(54, 54, 54) !important;
+}
+.login_btn:hover {
+    box-shadow: none !important;
+    outline: 0px !important;
+    cursor: pointer;
+    background: #e5c2a0 !important;
+    color: rgb(0, 0, 0) !important;
+    font-weight: bold;
+}
+.login_container {
+    padding: 0 2rem;
+}
+.input-group-text {
+    background: #f7ba5b !important;
+    color: rgb(255, 255, 255) !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+#messages{
+    background-color: grey;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
 }

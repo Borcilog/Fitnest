@@ -28,3 +28,4 @@ class Contact(models.Model):
 
     def str(self):
         return self.name
+
