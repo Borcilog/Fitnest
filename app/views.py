@@ -1,52 +1,72 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Post, Video, Contact
-from .forms import VideoForm, ContactForm, CreateUserForm
+from .models import Post, Video, Contact, ClassSchedule, Enrollment
+from .forms import VideoForm, ContactForm, ClassEnrollmentForm
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from .forms import RegisterForm
 from django.contrib import messages
 
-def RegisterPage(request):
-    form = CreateUserForm()
-
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, ' Account Has Been Created for ' + user)
-
-            return redirect('login')
-
-    context = {'form': form }
-    return render(request, 'app/register.html', context)
-
-def LoginPage(request):
-    
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
+            user = form.save()
             login(request, user)
-            return redirect('home') 
+            messages.success(request, "Registration successful!")
+            return redirect("home")
         else:
-            messages.info(request, 'Username or Password is Incorrect')
-            
-        context = {}
-        return render(request, 'app/login.html', context)
+            messages.error(request, "Registration failed. Please check the form.")
+    else:
+        form = RegisterForm()
+    return render(request, "app/register.html", {"form": form})
 
-def LogoutUser(request):
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f"Welcome, {username}!")
+                return redirect("home")
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+    return render(request, "app/login.html", {"form": form})
+
+def logout_view(request):
     logout(request)
-    return redirect('login')
-
+    messages.info(request, "You have successfully logged out.")
+    return redirect("home")
 
 @login_required(login_url='login')
+
+class BlogCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'author', 'body']
+    template_name = 'app/blog_create.html'
+
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'author', 'body']
+    template_name = 'app/blog_update.html'
+
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'app/blog_delete.html'
+    success_url = reverse_lazy('blog')
 
 class HomePageView(TemplateView):
     template_name = 'app/home.html'
@@ -99,3 +119,21 @@ class ContactPageView(CreateView):
     form_class = ContactForm
     template_name = 'app/contact.html'
     success_url = reverse_lazy('home')
+
+def class_schedule(request):
+    schedules = ClassSchedule.objects.all()
+    return render(request, 'app/class_schedule.html', {'schedules': schedules})
+
+def class_enroll(request, schedule_id):
+    schedule = get_object_or_404(ClassSchedule, id=schedule_id)
+    if request.method == 'POST':
+        form = ClassEnrollmentForm(request.POST)
+        if form.is_valid():
+            enrollment = form.save(commit=False)
+            enrollment.user = request.user 
+            enrollment.class_schedule = schedule
+            enrollment.save()
+            return redirect('class_schedule')
+    else:
+        form = ClassEnrollmentForm()
+    return render(request, 'app/class_enroll.html', {'form': form})

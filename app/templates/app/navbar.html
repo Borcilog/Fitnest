@@ -12,7 +12,15 @@
     <a href="{% url 'blog' %}">Blog</a>
     <a href="{% url 'Video_list' %}">Videos</a>
     <a href="{% url 'Contact' %}">Contact</a>
+    <a href="{% url 'class_schedule' %}">ClassSched</a>
 
-    <span class="hello-msg" style="position: absolute; right: 11rem;">Hello!, {{request.user}} </span>
-    <span style="position: absolute; right: 4rem;" ><a href="{% url 'logout' %}" class="hello-msg">Logout</a></span>
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}!</p>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-primary">Logout</button>
+    </form>
+{% else %}
+    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+{% endif %}
 </header>
